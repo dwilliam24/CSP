@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Calc extends JFrame {
@@ -15,9 +16,9 @@ public class Calc extends JFrame {
     private JButton arcTangent = new JButton("arctan(x)");
     private JButton log = new JButton("log(x)");
     private JButton E = new JButton("e^x");
-    private JButton
+    private JButton naturalLog = new JButton("ln(x)");
 
-    private JButton clear = new JButton("Clear");
+    private JButton clear = new JButton("clear");
 
     public Calc(){
         super("Calculator");
@@ -29,56 +30,122 @@ public class Calc extends JFrame {
         add(CalculatorLBL);
 
         textEntry.setBounds(105,70,160,30);
+        textEntry.setHorizontalAlignment(SwingConstants.CENTER);
         add(textEntry);
 
-        sine.setBounds(55,120,80,30);
+        sine.setBounds(40,120,90,30);
         sine.addActionListener(e -> sineClicked());
         add(sine);
-        cosine.setBounds(145,120,80,30);
+        cosine.setBounds(140,120,90,30);
         cosine.addActionListener(e-> cosineClicked());
         add(cosine);
-        tangent.setBounds(235,120,80,30);
+        tangent.setBounds(240,120,90,30);
         tangent.addActionListener(e->tangentClicked());
         add(tangent);
 
-        factorial.setBounds(55,160,80,30);
+        factorial.setBounds(40,160,90,30);
         factorial.addActionListener(e-> factorialClicked());
         add(factorial);
-        square.setBounds(145,160,80,30);
+        square.setBounds(140,160,90,30);
         square.addActionListener(e-> squareClicked());
         add(square);
-        squareRoot.setBounds(235,160,80,30);
+        squareRoot.setBounds(240,160,90,30);
         squareRoot.addActionListener(e -> sqrtClicked());
         add(squareRoot);
+
+        arcSine.setBounds(40,200,90,30);
+        arcSine.addActionListener(e-> arcSineClicked());
+        add(arcSine);
+        arcCosine.setBounds(140,200,90,30);
+        arcCosine.addActionListener(e-> arcCosineClicked());
+        add(arcCosine);
+        arcTangent.setBounds(240,200,90,30);
+        arcTangent.addActionListener(e-> arcTangentClicked());
+        add(arcTangent);
+
+        log.setBounds(40,240,90,30);
+        log.addActionListener(e -> logClicked());
+        add(log);
+        E.setBounds(140,240,90,30);
+        E.addActionListener(e-> EClicked());
+        add(E);
+        naturalLog.setBounds(240,240,90,30);
+        naturalLog.addActionListener(e-> naturalLogClicked());
+        add(naturalLog);
+
+        clear.setBounds(140, 280, 90, 30);
+        clear.addActionListener(e->clearClicked());
+        add(clear);
 
         setVisible(true);
     }
 
+    private void clearClicked() {
+        textEntry.setText("");
+    }
+
+    private void naturalLogClicked() {
+        if (textEntry.getText().isEmpty()) return;
+        textEntry.setText(String.valueOf(Math.log(Double.parseDouble(textEntry.getText()))));
+    }
+
+    private void EClicked() {
+        if (textEntry.getText().isEmpty()) return;
+        textEntry.setText(String.valueOf(Math.pow(Math.E,Double.parseDouble(textEntry.getText()))));
+    }
+
+    private void arcTangentClicked() {
+        if (textEntry.getText().isEmpty()) return;
+        textEntry.setText(String.valueOf(Math.atan(Double.parseDouble(textEntry.getText()))));
+    }
+
+    private void arcCosineClicked() {
+        if (textEntry.getText().isEmpty()) return;
+        textEntry.setText(String.valueOf(Math.acos(Double.parseDouble(textEntry.getText()))));
+    }
+
+    private void arcSineClicked() {
+        if (textEntry.getText().isEmpty()) return;
+        textEntry.setText(String.valueOf(Math.asin(Double.parseDouble(textEntry.getText()))));
+    }
+
+    private void logClicked() {
+        if (textEntry.getText().isEmpty()) return;
+        textEntry.setText(String.valueOf(Math.log10(Double.parseDouble(textEntry.getText()))));
+    }
+
     private void sqrtClicked() {
+        if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.sqrt(Double.parseDouble(textEntry.getText()))));
     }
 
     private void squareClicked() {
+        if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.pow(Double.parseDouble(textEntry.getText()),2)));
     }
 
     private void factorialClicked() {
+        if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(factorialMeth(Long.parseLong(textEntry.getText()))));
     }
 
     private void tangentClicked() {
+        if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.tan(Double.parseDouble(textEntry.getText()))));
     }
 
     private void cosineClicked() {
+        if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.cos(Double.parseDouble(textEntry.getText()))));
     }
 
     private void sineClicked() {
+        if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.sin(Double.parseDouble(textEntry.getText()))));
     }
-
+    //returns factorial of an input
     public long factorialMeth(long number){
+        if (textEntry.getText().isEmpty()) return 0;
         if (number==0) return 0;
         ArrayList<Integer> factors = new ArrayList<>();
         for (int x=1; x<=number; x++){
