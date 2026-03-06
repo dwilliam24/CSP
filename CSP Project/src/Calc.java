@@ -19,7 +19,7 @@ public class Calc extends JFrame {
     private JButton naturalLog = new JButton("ln(x)");
 
     private JButton clear = new JButton("clear");
-
+    //initializes the class and sets up the window
     public Calc(){
         super("Calculator");
         setSize(400,400);
@@ -79,66 +79,66 @@ public class Calc extends JFrame {
 
         setVisible(true);
     }
-
+    //clears the textbox
     private void clearClicked() {
         textEntry.setText("");
     }
-
+    //sets the textbox to the natural log of x
     private void naturalLogClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.log(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets the textbox to e to the power of x
     private void EClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.pow(Math.E,Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets the textbox to the arc tangent of x
     private void arcTangentClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.atan(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets the textbox to the arc cosine of x
     private void arcCosineClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.acos(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets the textbox to the arc sine of x
     private void arcSineClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.asin(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets the textbox to the log10 of x
     private void logClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.log10(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets textbox to the square root of x
     private void sqrtClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.sqrt(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets the textbox to the square of x
     private void squareClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.pow(Double.parseDouble(textEntry.getText()),2)));
     }
-
+    //sets textbox to the factorial of x
     private void factorialClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(factorialMeth(Long.parseLong(textEntry.getText()))));
     }
-
+    //sets textbox to tan sin(x) in radians
     private void tangentClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.tan(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets textbox to the cos(x) in radians
     private void cosineClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.cos(Double.parseDouble(textEntry.getText()))));
     }
-
+    //sets textbox to the sin(x) in radians
     private void sineClicked() {
         if (textEntry.getText().isEmpty()) return;
         textEntry.setText(String.valueOf(Math.sin(Double.parseDouble(textEntry.getText()))));
