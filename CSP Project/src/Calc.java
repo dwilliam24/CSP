@@ -144,7 +144,7 @@ public class Calc extends JFrame {
         textEntry.setText(String.valueOf(Math.sin(Double.parseDouble(textEntry.getText()))));
     }
     //returns factorial of an input
-    public long factorialMeth(long number){
+    private long factorialMeth(long number){
         if (textEntry.getText().isEmpty()) return 0;
         if (number==0) return 0;
         ArrayList<Integer> factors = new ArrayList<>();
