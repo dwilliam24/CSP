@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Calc extends JFrame {
     private JLabel CalculatorLBL = new JLabel("Enter a number:");
     private JTextField textEntry = new JTextField();
+
     private JButton sine = new JButton("sin(x)");
     private JButton cosine = new JButton("cos(x)");
     private JButton tangent = new JButton("tan(x)");
@@ -19,10 +20,15 @@ public class Calc extends JFrame {
     private JButton naturalLog = new JButton("ln(x)");
 
     private JButton clear = new JButton("clear");
-    //initializes the class and sets up the window
+
+    private ArrayList<String> history = new ArrayList<>();
+
+    private DefaultListModel<String> historyModel = new DefaultListModel<>();
+    private JList<String> historyList = new JList<>(historyModel);
+
     public Calc(){
         super("Calculator");
-        setSize(400,400);
+        setSize(400,450);
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -36,9 +42,11 @@ public class Calc extends JFrame {
         sine.setBounds(40,120,90,30);
         sine.addActionListener(e -> sineClicked());
         add(sine);
+
         cosine.setBounds(140,120,90,30);
         cosine.addActionListener(e-> cosineClicked());
         add(cosine);
+
         tangent.setBounds(240,120,90,30);
         tangent.addActionListener(e->tangentClicked());
         add(tangent);
@@ -46,9 +54,11 @@ public class Calc extends JFrame {
         factorial.setBounds(40,160,90,30);
         factorial.addActionListener(e-> factorialClicked());
         add(factorial);
+
         square.setBounds(140,160,90,30);
         square.addActionListener(e-> squareClicked());
         add(square);
+
         squareRoot.setBounds(240,160,90,30);
         squareRoot.addActionListener(e -> sqrtClicked());
         add(squareRoot);
@@ -56,9 +66,11 @@ public class Calc extends JFrame {
         arcSine.setBounds(40,200,90,30);
         arcSine.addActionListener(e-> arcSineClicked());
         add(arcSine);
+
         arcCosine.setBounds(140,200,90,30);
         arcCosine.addActionListener(e-> arcCosineClicked());
         add(arcCosine);
+
         arcTangent.setBounds(240,200,90,30);
         arcTangent.addActionListener(e-> arcTangentClicked());
         add(arcTangent);
@@ -66,9 +78,11 @@ public class Calc extends JFrame {
         log.setBounds(40,240,90,30);
         log.addActionListener(e -> logClicked());
         add(log);
+
         E.setBounds(140,240,90,30);
         E.addActionListener(e-> EClicked());
         add(E);
+
         naturalLog.setBounds(240,240,90,30);
         naturalLog.addActionListener(e-> naturalLogClicked());
         add(naturalLog);
@@ -77,84 +91,155 @@ public class Calc extends JFrame {
         clear.addActionListener(e->clearClicked());
         add(clear);
 
+        JScrollPane scrollPane = new JScrollPane(historyList);
+        scrollPane.setBounds(40, 320, 290, 80);
+        add(scrollPane);
+
         setVisible(true);
     }
+
+    //adds a calculation to the history arraylist
+    private void addToHistory(String operation, double result) {
+        String entry = operation + " = " + result;
+
+        history.add(entry);
+
+        if (history.size() > 10) {
+            history.remove(0);
+        }
+
+        updateHistoryDisplay();
+    }
+
+    private void updateHistoryDisplay() {
+        historyModel.clear();
+
+        for (String item : history) {
+            historyModel.addElement(item);
+        }
+    }
+
     //clears the textbox
     private void clearClicked() {
         textEntry.setText("");
     }
+
     //sets the textbox to the natural log of x
     private void naturalLogClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.log(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.log(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("ln(" + input + ")", result);
     }
+
     //sets the textbox to e to the power of x
     private void EClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.pow(Math.E,Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.pow(Math.E, input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("e^(" + input + ")", result);
     }
+
     //sets the textbox to the arc tangent of x
     private void arcTangentClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.atan(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.atan(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("atan(" + input + ")", result);
     }
+
     //sets the textbox to the arc cosine of x
     private void arcCosineClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.acos(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.acos(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("acos(" + input + ")", result);
     }
+
     //sets the textbox to the arc sine of x
     private void arcSineClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.asin(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.asin(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("asin(" + input + ")", result);
     }
+
     //sets the textbox to the log10 of x
     private void logClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.log10(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.log10(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("log(" + input + ")", result);
     }
+
     //sets textbox to the square root of x
     private void sqrtClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.sqrt(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.sqrt(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("√(" + input + ")", result);
     }
+
     //sets the textbox to the square of x
     private void squareClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.pow(Double.parseDouble(textEntry.getText()),2)));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.pow(input,2);
+        textEntry.setText(String.valueOf(result));
+        addToHistory(input + "^2", result);
     }
+
     //sets textbox to the factorial of x
     private void factorialClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(factorialMeth(Long.parseLong(textEntry.getText()))));
+        long input = Long.parseLong(textEntry.getText());
+        long result = factorialMeth(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory(input + "!", result);
     }
-    //sets textbox to tan sin(x) in radians
+
+    //sets textbox to tan(x) in radians
     private void tangentClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.tan(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.tan(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("tan(" + input + ")", result);
     }
+
     //sets textbox to the cos(x) in radians
     private void cosineClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.cos(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.cos(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("cos(" + input + ")", result);
     }
+
     //sets textbox to the sin(x) in radians
     private void sineClicked() {
         if (textEntry.getText().isEmpty()) return;
-        textEntry.setText(String.valueOf(Math.sin(Double.parseDouble(textEntry.getText()))));
+        double input = Double.parseDouble(textEntry.getText());
+        double result = Math.sin(input);
+        textEntry.setText(String.valueOf(result));
+        addToHistory("sin(" + input + ")", result);
     }
+
     //returns factorial of an input
     private long factorialMeth(long number){
-        if (textEntry.getText().isEmpty()) return 0;
-        if (number==0) return 0;
-        ArrayList<Integer> factors = new ArrayList<>();
-        for (int x=1; x<=number; x++){
-            factors.add(x);
+        if (number == 0) return 1;
+
+        long result = 1;
+        for (long i = 1; i <= number; i++) {
+            result *= i;
         }
-        long finalNum = 1;
-        for (Integer factor : factors) {
-            finalNum *= factor;
-        }
-        return finalNum;
+        return result;
     }
 }
